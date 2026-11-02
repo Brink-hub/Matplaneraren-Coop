@@ -1,67 +1,216 @@
+
 <!DOCTYPE html>
 <html lang="sv">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Matplaneraren – Coop</title>
+<title>Matplaneraren – Coop 2.3</title>
 <style>
-:root{font-family:Arial,sans-serif;color:#173b32;background:#f4f7f4}
-*{box-sizing:border-box}
-body{margin:0}
-header{background:#075342;color:white;padding:22px 16px}
-header h1{margin:0 0 6px;font-size:25px}
-header p{margin:0;opacity:.85}
-main{max-width:1050px;margin:auto;padding:16px}
-section{background:white;border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 2px 8px #0001}
-h2{margin-top:0;font-size:20px}
-h3{margin:8px 0}
-button{background:#087a55;color:white;border:0;border-radius:8px;padding:11px 15px;cursor:pointer;font-weight:bold}
-button:hover{background:#065f42}
-button.secondary{background:#e8f1ed;color:#075342}
-input,select,textarea{font:inherit;padding:9px;border:1px solid #b9cbc2;border-radius:7px;max-width:100%}
-textarea{width:100%;min-height:125px}
-label{display:block;margin:8px 0}
-.days{display:flex;flex-wrap:wrap;gap:8px}
-.day{border:1px solid #d5e1d9;border-radius:9px;padding:9px;background:#fafcfa}
-.day label{margin:0}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:12px}
-.card{border:1px solid #dce7df;border-radius:10px;padding:13px;background:#fcfdfc}
-.small{font-size:13px;color:#526a60}
-.tag{display:inline-block;background:#e7f2eb;color:#075342;border-radius:20px;padding:4px 8px;font-size:12px;margin:3px 3px 3px 0}
-.meal{padding:10px 0;border-bottom:1px solid #e5eae6}
-.meal:last-child{border:0}
-.row{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
-pre{white-space:pre-wrap}
-.notice{background:#fff7df;border-left:4px solid #b68a28;padding:10px;border-radius:6px}
-@media(max-width:600px){main{padding:10px}section{padding:14px}}
+:root {
+  font-family: Arial, sans-serif;
+  color: #173b32;
+  background: #f4f7f4;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+header {
+  background: #075342;
+  color: white;
+  padding: 22px 16px;
+}
+header h1 { margin: 0 0 6px; font-size: 25px; }
+header p { margin: 0; opacity: .85; }
+main { max-width: 1100px; margin: auto; padding: 16px; }
+section {
+  background: white;
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px #0001;
+}
+h2 { margin-top: 0; font-size: 20px; }
+h3 { margin: 8px 0; }
+button {
+  background: #087a55;
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  padding: 11px 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+button:hover { background: #065f42; }
+button.secondary { background: #e8f1ed; color: #075342; }
+input, select, textarea {
+  font: inherit;
+  padding: 9px;
+  border: 1px solid #b9cbc2;
+  border-radius: 7px;
+  max-width: 100%;
+}
+textarea { width: 100%; min-height: 125px; }
+label { display: block; margin: 8px 0; }
+.days { display: flex; flex-wrap: wrap; gap: 8px; }
+.day {
+  border: 1px solid #d5e1d9;
+  border-radius: 9px;
+  padding: 9px;
+  background: #fafcfa;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+  gap: 12px;
+}
+.card {
+  border: 1px solid #dce7df;
+  border-radius: 10px;
+  padding: 13px;
+  background: #fcfdfc;
+}
+.small { font-size: 13px; color: #526a60; }
+.tag {
+  display: inline-block;
+  background: #e7f2eb;
+  color: #075342;
+  border-radius: 20px;
+  padding: 4px 8px;
+  font-size: 12px;
+  margin: 3px;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.meal {
+  padding: 10px 0;
+  border-bottom: 1px solid #e5eae6;
+}
+.meal:last-child { border: 0; }
+.meal-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+}
+.meal-photo {
+  width: 66px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.recipe-photo {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 9px;
+}
+.recipe-change {
+  width: 100%;
+  margin-top: 7px;
+  background: white;
+}
+.day-total {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #e8f1ed;
+  font-weight: bold;
+}
+.day-total .small {
+  display: block;
+  margin-top: 5px;
+  font-weight: normal;
+}
+.meal-selection { overflow-x: auto; }
+.meal-selection table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 540px;
+}
+.meal-selection th,
+.meal-selection td {
+  padding: 9px;
+  border-bottom: 1px solid #e4ebe6;
+  text-align: center;
+}
+.meal-selection th:first-child,
+.meal-selection td:first-child { text-align: left; }
+.meal-selection input { width: 18px; height: 18px; }
+.lunch-choice { width: 100%; }
+.shopping-group { margin-top: 14px; }
+.shopping-group h3 {
+  border-bottom: 1px solid #dce7df;
+  padding-bottom: 6px;
+}
+.shopping-item { display: block; margin: 7px 0; }
+.shopping-item input { margin-right: 9px; }
+.image-input { width: 100%; font-size: 12px; }
+.notice {
+  background: #fff7df;
+  border-left: 4px solid #b68a28;
+  padding: 10px;
+  border-radius: 6px;
+}
+@media(max-width:600px) {
+  main { padding: 10px; }
+  section { padding: 14px; }
+}
 </style>
 </head>
+
 <body>
 <header>
-<h1>🥗 Matplaneraren – Coop</h1>
-<p>Veckomeny, resmat, mellanmål och inköpslista</p>
+  <h1>🥗 Matplaneraren – Coop 2.3</h1>
+  <p>Veckomeny, resmat, receptbank och smart inköpslista</p>
 </header>
+
 <main>
 
 <section>
 <h2>1. Dina inställningar</h2>
+
 <div class="grid">
 <label>Kalorimål per dag
-<input id="calories" type="number" value="2200" min="1000" max="5000"></label>
-<label>Antal personer
-<input id="people" type="number" value="1" min="1" max="12"></label>
-<label>Matbudget per vecka (kr)
-<input id="budget" type="number" value="1000" min="0"></label>
-</div>
-<p class="small">Kalorimålet är ett inställbart planeringsvärde, inte en personlig medicinsk rekommendation.</p>
+<input id="calories" type="number" value="2200" min="1000" max="5000">
+</label>
 
-<h3>Vilka dagar är du på resande fot?</h3>
+<label>Antal personer
+<input id="people" type="number" value="1" min="1" max="12">
+</label>
+
+<label>Matbudget per vecka (kr)
+<input id="budget" type="number" value="1000" min="0">
+</label>
+</div>
+
+<p class="small">
+Kalorimålet är ett inställbart planeringsvärde.
+</p>
+
+<h3>Välj dagar och måltider</h3>
+<p class="small">
+Avmarkera måltider du inte vill ha recept till.
+Du kan även avmarkera en hel dag.
+</p>
+<div id="mealSelection" class="meal-selection"></div>
+
+<h3>Lunchtyp för varje dag</h3>
+<p class="small">
+Reslunch är kall mat att ta med.
+Matlåda är mat som kan värmas.
+</p>
+<div id="lunchDays" class="grid"></div>
+
+<h3>Övriga resdagar</h3>
 <div id="days" class="days"></div>
 
-<h3>Vilka måltider ska vara resvänliga?</h3>
+<h3>Vilka andra måltider ska vara resvänliga?</h3>
 <div class="days">
 <label><input type="checkbox" class="travelmeal" value="frukost"> Frukost</label>
-<label><input type="checkbox" class="travelmeal" value="lunch" checked> Lunch</label>
 <label><input type="checkbox" class="travelmeal" value="middag"> Middag</label>
 <label><input type="checkbox" class="travelmeal" value="mellanmål" checked> Mellanmål</label>
 </div>
@@ -71,7 +220,11 @@ pre{white-space:pre-wrap}
 
 <h3>Allergener att utesluta</h3>
 <div id="allergens" class="days"></div>
-<p class="notice small">Allergenfiltreringen är ett planeringshjälpmedel. Okänd allergenstatus får inte tolkas som säker. Kontrollera alltid produktmärkning och korskontaminering.</p>
+
+<p class="notice small">
+Allergenfiltreringen är ett planeringshjälpmedel.
+Kontrollera alltid innehåll och produktmärkning.
+</p>
 
 <button onclick="saveSettings()">Spara inställningar</button>
 </section>
@@ -81,225 +234,1354 @@ pre{white-space:pre-wrap}
 <h2>2. Skapa veckomeny</h2>
 <button onclick="generateMenu()">Skapa veckomeny</button>
 </div>
-<p class="small">Importera gärna fler recept först för bättre variation. Menyn skapas från den lokala receptbanken.</p>
+<p class="small">
+Du kan byta enskilda recept efter att menyn har skapats.
+Kalorier, protein och inköpslista uppdateras automatiskt.
+</p>
 <div id="menu"></div>
 </section>
 
 <section>
 <h2>3. Coop-inköpslista</h2>
-<p class="small">Sammanställda råvaror för veckans meny. Priser är schabloner och inte aktuella Coop-priser.</p>
+<p class="small">
+Liknande ingredienser och kompatibla måttenheter
+slås ihop automatiskt.
+</p>
 <div id="shopping"></div>
-<button class="secondary" onclick="copyShopping()">Kopiera inköpslista</button>
+<button class="secondary" onclick="copyShopping()">
+Kopiera inköpslista
+</button>
 </section>
 
 <section>
-<h2>4. Receptbank och import från agenten</h2>
+<h2>4. Receptbank och import</h2>
 <p>Klistra in JSON från din ChatGPT-agent eller välj en JSON-fil.</p>
-<textarea id="recipeJSON" placeholder='{"recipes":[{"name":"Kycklingwrap","type":"lunch","proteinSource":"Kyckling","kcal":360,"protein":36,"travel":true,"ingredients":[{"name":"Kycklingfilé","amount":100,"unit":"g"}],"steps":["Tillaga kycklingen","Fyll tortillan"],"methods":["spis"],"allergens":["gluten"]}]}'></textarea>
-<p><input type="file" id="jsonFile" accept=".json,application/json"></p>
+
+<textarea id="recipeJSON"
+placeholder='{"recipes":[{"name":"Kycklingwrap","type":"lunch","proteinSource":"Kyckling","kcal":360,"protein":36,"travel":true,"lunchMode":"cold","ingredients":[{"name":"Kycklingfilé","amount":100,"unit":"g"}],"steps":["Tillaga kycklingen"],"methods":["spis"],"allergens":["gluten"]}]}'>
+</textarea>
+
+<p>
+<input type="file" id="jsonFile" accept=".json,application/json">
+</p>
+
 <div class="row">
 <button onclick="importRecipes()">Importera recept</button>
-<button class="secondary" onclick="copyAgentPrompt()">Kopiera instruktion till agenten</button>
+<button class="secondary" onclick="copyAgentPrompt()">
+Kopiera instruktion till agenten
+</button>
 </div>
+
 <p id="importStatus" class="small"></p>
+
+<p class="small">
+Du kan lägga till en bildadress för varje recept.
+Utan bild visas en illustration.
+</p>
+
 <div id="recipeBank"></div>
 </section>
 
 <section>
 <h2>5. Säkerhetskopiera</h2>
-<p class="small">Dina recept och inställningar sparas lokalt i webbläsaren. De synkroniseras inte automatiskt mellan dator och telefon.</p>
-<button class="secondary" onclick="exportData()">Exportera recept och inställningar</button>
-<button class="secondary" onclick="resetDemo()">Återställ exempelrecept</button>
+<p class="small">
+Recept och inställningar sparas i din webbläsare.
+</p>
+<button class="secondary" onclick="exportData()">
+Exportera recept och inställningar
+</button>
+<button class="secondary" onclick="resetDemo()">
+Återställ exempelrecept
+</button>
 </section>
 
 </main>
-<script>
-const DAYS=["Måndag","Tisdag","Onsdag","Torsdag","Fredag","Lördag","Söndag"];
-const TYPES=["frukost","lunch","middag","mellanmål"];
-const METHODS=["spis","ugn","mikro","airfryer","grill","utan tillagning"];
-const ALLERGENS=["gluten","mjölk","laktos","nötter","jordnötter","ägg","soja","fisk","skaldjur","sesam"];
-const KEY="matplaneraren_coop_v13";
-const seed=[
-{name:"Havregrynsgröt med ägg och banan",type:"frukost",proteinSource:"Ägg",kcal:420,protein:22,travel:false,methods:["spis","mikro"],allergens:["ägg"],ingredients:[{name:"Havregryn",amount:60,unit:"g"},{name:"Ägg",amount:2,unit:"st"},{name:"Banan",amount:1,unit:"st"}],steps:["Koka havregryn med vatten på spis cirka 4 minuter eller i mikro 2–3 minuter.","Rör ner ett ägg under uppvärmning tills det är helt tillagat.","Servera med banan och ett kokt ägg."]},
-{name:"Kvarg med bär och havre",type:"frukost",proteinSource:"Mejeri",kcal:340,protein:32,travel:true,methods:["utan tillagning"],allergens:["mjölk","laktos"],ingredients:[{name:"Kvarg",amount:250,unit:"g"},{name:"Bär",amount:100,unit:"g"},{name:"Havregryn",amount:35,unit:"g"}],steps:["Lägg kvarg och bär i en burk.","Packa havregryn separat.","Förvara kallt och använd kylklamp vid transport."]},
-{name:"Kycklingwrap",type:"lunch",proteinSource:"Kyckling",kcal:360,protein:36,travel:true,methods:["spis","airfryer"],allergens:["gluten","mjölk","laktos"],ingredients:[{name:"Kycklingfilé",amount:100,unit:"g"},{name:"Fullkornstortilla",amount:1,unit:"st"},{name:"Kvarg",amount:40,unit:"g"},{name:"Gurka",amount:50,unit:"g"}],steps:["Tillaga kycklingen helt genomstekt på spis eller i airfryer.","Låt svalna snabbt.","Fyll tortillan med kyckling, kvarg och gurka.","Rulla ihop och förvara kallt."]},
-{name:"Kalkonfärsbullar med pasta",type:"lunch",proteinSource:"Kalkon",kcal:480,protein:42,travel:false,methods:["spis","ugn","airfryer"],allergens:["gluten"],ingredients:[{name:"Kalkonfärs",amount:160,unit:"g"},{name:"Fullkornspasta",amount:55,unit:"g"},{name:"Krossade tomater",amount:150,unit:"g"}],steps:["Forma färsen till små bullar.","Stek genomstekt eller baka i ugn 200 grader cirka 20 minuter.","Koka pasta och värm tomatsåsen.","Servera tillsammans."]},
-{name:"Linsgryta med kikärtor",type:"lunch",proteinSource:"Veganskt",kcal:430,protein:23,travel:true,methods:["spis"],allergens:[],ingredients:[{name:"Röda linser",amount:65,unit:"g"},{name:"Kikärtor",amount:100,unit:"g"},{name:"Krossade tomater",amount:150,unit:"g"},{name:"Spenat",amount:100,unit:"g"}],steps:["Koka linser i tomater och vatten cirka 15 minuter.","Tillsätt kikärtor och spenat.","Låt allt bli genomvarmt.","Kyl snabbt om det ska bli matlåda."]},
-{name:"Citronkyckling med potatis",type:"middag",proteinSource:"Kyckling",kcal:460,protein:45,travel:false,methods:["ugn","airfryer","grill"],allergens:["mjölk","laktos"],ingredients:[{name:"Kycklingfilé",amount:160,unit:"g"},{name:"Potatis",amount:180,unit:"g"},{name:"Broccoli",amount:150,unit:"g"},{name:"Kvarg",amount:50,unit:"g"}],steps:["Krydda kyckling och skär potatis i klyftor.","Baka i ugn 200 grader cirka 25–30 minuter, kontrollera att kycklingen är genomstekt.","Koka broccoli och servera med kvarg."]},
-{name:"Lax med quinoa",type:"middag",proteinSource:"Lax",kcal:510,protein:37,travel:false,methods:["ugn","airfryer","grill"],allergens:["fisk"],ingredients:[{name:"Lax",amount:140,unit:"g"},{name:"Quinoa",amount:45,unit:"g"},{name:"Gröna ärtor",amount:120,unit:"g"}],steps:["Koka quinoa enligt förpackningen.","Baka lax i ugn 175 grader cirka 15–20 minuter tills färdig.","Koka ärtor och servera."]},
-{name:"Torsk med vita bönor",type:"middag",proteinSource:"Torsk",kcal:350,protein:42,travel:false,methods:["ugn","airfryer"],allergens:["fisk"],ingredients:[{name:"Torsk",amount:180,unit:"g"},{name:"Vita bönor",amount:130,unit:"g"},{name:"Tomat",amount:150,unit:"g"},{name:"Paprika",amount:80,unit:"g"}],steps:["Lägg bönor, tomat och paprika i ugnsform.","Lägg torsken ovanpå.","Baka i 190 grader cirka 15–20 minuter tills fisken är färdig."]},
-{name:"Kvargburk med hallon",type:"mellanmål",proteinSource:"Mejeri",kcal:260,protein:28,travel:true,methods:["utan tillagning"],allergens:["mjölk","laktos"],ingredients:[{name:"Kvarg",amount:250,unit:"g"},{name:"Hallon",amount:75,unit:"g"},{name:"Havregryn",amount:20,unit:"g"}],steps:["Blanda kvarg och hallon i burk.","Lägg havre separat.","Förvara kallt och ta med sked."]},
-{name:"Banan och havrerutor",type:"mellanmål",proteinSource:"Vegetariskt",kcal:200,protein:7,travel:true,methods:["ugn","airfryer"],allergens:["jordnötter"],ingredients:[{name:"Banan",amount:1,unit:"st"},{name:"Havregryn",amount:30,unit:"g"},{name:"Jordnötssmör",amount:10,unit:"g"}],steps:["Mosa bananen och blanda med övriga ingredienser.","Forma två små rutor.","Baka i ugn 175 grader cirka 20 minuter.","Låt svalna helt och packa torrt."]},
-{name:"Ägg och äpple",type:"mellanmål",proteinSource:"Ägg",kcal:230,protein:13,travel:true,methods:["spis"],allergens:["ägg"],ingredients:[{name:"Ägg",amount:2,unit:"st"},{name:"Äpple",amount:1,unit:"st"}],steps:["Koka äggen hårda cirka 9–10 minuter.","Kyl dem snabbt och packa med ett äpple.","Använd kylklamp för äggen."]}
-];
-let state;
-try{state=JSON.parse(localStorage.getItem(KEY))}catch(e){}
-if(!state||!Array.isArray(state.recipes))state={recipes:seed,settings:{},menu:[]};
 
-function el(id){return document.getElementById(id)}
-function save(){localStorage.setItem(KEY,JSON.stringify(state))}
-function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function init(){
-el("days").innerHTML=DAYS.map((d,i)=>`<label class="day"><input type="checkbox" class="travelday" value="${i}"> ${d}</label>`).join("");
-el("methods").innerHTML=METHODS.map(m=>`<label class="day"><input type="checkbox" class="method" value="${m}" checked> ${m}</label>`).join("");
-el("allergens").innerHTML=ALLERGENS.map(a=>`<label class="day"><input type="checkbox" class="allergen" value="${a}"> ${a}</label>`).join("");
-const s=state.settings;
-if(s.calories)el("calories").value=s.calories;
-if(s.people)el("people").value=s.people;
-if(s.budget!==undefined)el("budget").value=s.budget;
-document.querySelectorAll(".travelday").forEach(x=>x.checked=(s.travelDays||[]).includes(Number(x.value)));
-document.querySelectorAll(".travelmeal").forEach(x=>x.checked=(s.travelMeals||["lunch","mellanmål"]).includes(x.value));
-document.querySelectorAll(".method").forEach(x=>x.checked=(s.methods||METHODS).includes(x.value));
-document.querySelectorAll(".allergen").forEach(x=>x.checked=(s.allergens||[]).includes(x.value));
-renderBank();renderMenu();
-}
-function checked(cls){return [...document.querySelectorAll("."+cls+":checked")].map(x=>x.value)}
-function saveSettings(){
-state.settings={
-calories:Number(el("calories").value),
-people:Number(el("people").value),
-budget:Number(el("budget").value),
-travelDays:checked("travelday").map(Number),
-travelMeals:checked("travelmeal"),
-methods:checked("method"),
-allergens:checked("allergen")
+<script>
+const DAYS = [
+  "Måndag","Tisdag","Onsdag","Torsdag",
+  "Fredag","Lördag","Söndag"
+];
+
+const TYPES = [
+  "frukost","lunch","middag","mellanmål"
+];
+
+const METHODS = [
+  "spis","ugn","mikro","airfryer",
+  "grill","utan tillagning"
+];
+
+const ALLERGENS = [
+  "gluten","mjölk","laktos","nötter",
+  "jordnötter","ägg","soja","fisk",
+  "skaldjur","sesam"
+];
+
+// Samma lagringsnyckel som tidigare versioner.
+const KEY = "matplaneraren_coop_v13";
+
+const LUNCH_DEFAULT = [
+  "home","cold","home","heat",
+  "home","home","home"
+];
+
+const LUNCH_LABEL = {
+  home:"Lunch hemma",
+  cold:"Reslunch utan uppvärmning",
+  heat:"Matlåda med uppvärmning"
 };
-save();alert("Inställningarna sparade.");
+
+const FOOD_COLORS = {
+  "Kyckling":"#e6a454",
+  "Lax":"#e88873",
+  "Torsk":"#80b6c4",
+  "Ägg":"#edc75b",
+  "Mejeri":"#c69cc9",
+  "Veganskt":"#78b68c",
+  "Vegetariskt":"#78b68c",
+  "Nötkött":"#bd8271",
+  "Kalkon":"#e6a454"
+};
+
+const seed = [
+{
+  name:"Havregrynsgröt med ägg och banan",
+  type:"frukost",
+  proteinSource:"Ägg",
+  kcal:420,
+  protein:22,
+  travel:false,
+  methods:["spis","mikro"],
+  allergens:["ägg"],
+  ingredients:[
+    {name:"Havregryn",amount:60,unit:"g"},
+    {name:"Ägg",amount:2,unit:"st"},
+    {name:"Banan",amount:1,unit:"st"}
+  ],
+  steps:[
+    "Koka havregryn med vatten.",
+    "Rör ner ett ägg under uppvärmning.",
+    "Servera med banan och ett kokt ägg."
+  ]
+},
+{
+  name:"Kvarg med bär och havre",
+  type:"frukost",
+  proteinSource:"Mejeri",
+  kcal:340,
+  protein:32,
+  travel:true,
+  methods:["utan tillagning"],
+  allergens:["mjölk","laktos"],
+  ingredients:[
+    {name:"Kvarg",amount:250,unit:"g"},
+    {name:"Bär",amount:100,unit:"g"},
+    {name:"Havregryn",amount:35,unit:"g"}
+  ],
+  steps:[
+    "Lägg kvarg och bär i en burk.",
+    "Packa havregryn separat.",
+    "Förvara kallt vid transport."
+  ]
+},
+{
+  name:"Kycklingwrap",
+  type:"lunch",
+  proteinSource:"Kyckling",
+  kcal:360,
+  protein:36,
+  travel:true,
+  lunchMode:"cold",
+  methods:["spis","airfryer"],
+  allergens:["gluten","mjölk","laktos"],
+  ingredients:[
+    {name:"Kycklingfilé",amount:100,unit:"g"},
+    {name:"Fullkornstortilla",amount:1,unit:"st"},
+    {name:"Kvarg",amount:40,unit:"g"},
+    {name:"Gurka",amount:50,unit:"g"}
+  ],
+  steps:[
+    "Tillaga kycklingen helt genomstekt.",
+    "Låt kycklingen svalna snabbt.",
+    "Fyll tortillan med kyckling, kvarg och gurka.",
+    "Rulla ihop och förvara kallt."
+  ]
+},
+{
+  name:"Kalkonfärsbullar med pasta",
+  type:"lunch",
+  proteinSource:"Kalkon",
+  kcal:480,
+  protein:42,
+  travel:false,
+  lunchMode:"heat",
+  methods:["spis","ugn","airfryer"],
+  allergens:["gluten"],
+  ingredients:[
+    {name:"Kalkonfärs",amount:160,unit:"g"},
+    {name:"Fullkornspasta",amount:55,unit:"g"},
+    {name:"Krossade tomater",amount:150,unit:"g"}
+  ],
+  steps:[
+    "Forma färsen till små bullar.",
+    "Stek eller tillaga i ugn tills genomstekta.",
+    "Koka pasta och värm tomatsåsen.",
+    "Servera tillsammans."
+  ]
+},
+{
+  name:"Linsgryta med kikärtor",
+  type:"lunch",
+  proteinSource:"Veganskt",
+  kcal:430,
+  protein:23,
+  travel:true,
+  lunchMode:"heat",
+  methods:["spis"],
+  allergens:[],
+  ingredients:[
+    {name:"Röda linser",amount:65,unit:"g"},
+    {name:"Kikärtor",amount:100,unit:"g"},
+    {name:"Krossade tomater",amount:150,unit:"g"},
+    {name:"Spenat",amount:100,unit:"g"}
+  ],
+  steps:[
+    "Koka linser i tomater och vatten.",
+    "Tillsätt kikärtor och spenat.",
+    "Låt allt bli genomvarmt.",
+    "Kyl snabbt om det ska bli matlåda."
+  ]
+},
+{
+  name:"Citronkyckling med potatis",
+  type:"middag",
+  proteinSource:"Kyckling",
+  kcal:460,
+  protein:45,
+  travel:false,
+  methods:["ugn","airfryer","grill"],
+  allergens:["mjölk","laktos"],
+  ingredients:[
+    {name:"Kycklingfilé",amount:160,unit:"g"},
+    {name:"Potatis",amount:180,unit:"g"},
+    {name:"Broccoli",amount:150,unit:"g"},
+    {name:"Kvarg",amount:50,unit:"g"}
+  ],
+  steps:[
+    "Krydda kycklingen och skär potatis i klyftor.",
+    "Tillaga i ugn tills kycklingen är genomstekt.",
+    "Servera med broccoli och kvarg."
+  ]
+},
+{
+  name:"Lax med quinoa",
+  type:"middag",
+  proteinSource:"Lax",
+  kcal:510,
+  protein:37,
+  travel:false,
+  methods:["ugn","airfryer","grill"],
+  allergens:["fisk"],
+  ingredients:[
+    {name:"Lax",amount:140,unit:"g"},
+    {name:"Quinoa",amount:45,unit:"g"},
+    {name:"Gröna ärtor",amount:120,unit:"g"}
+  ],
+  steps:[
+    "Koka quinoa enligt förpackningen.",
+    "Tillaga laxen i ugn tills den är färdig.",
+    "Servera med gröna ärtor."
+  ]
+},
+{
+  name:"Torsk med vita bönor",
+  type:"middag",
+  proteinSource:"Torsk",
+  kcal:350,
+  protein:42,
+  travel:false,
+  methods:["ugn","airfryer"],
+  allergens:["fisk"],
+  ingredients:[
+    {name:"Torsk",amount:180,unit:"g"},
+    {name:"Vita bönor",amount:130,unit:"g"},
+    {name:"Tomat",amount:150,unit:"g"},
+    {name:"Paprika",amount:80,unit:"g"}
+  ],
+  steps:[
+    "Lägg bönor och grönsaker i en ugnsform.",
+    "Lägg torsken ovanpå.",
+    "Tillaga i ugn tills fisken är färdig."
+  ]
+},
+{
+  name:"Kvargburk med hallon",
+  type:"mellanmål",
+  proteinSource:"Mejeri",
+  kcal:260,
+  protein:28,
+  travel:true,
+  methods:["utan tillagning"],
+  allergens:["mjölk","laktos"],
+  ingredients:[
+    {name:"Kvarg",amount:250,unit:"g"},
+    {name:"Hallon",amount:75,unit:"g"},
+    {name:"Havregryn",amount:20,unit:"g"}
+  ],
+  steps:[
+    "Blanda kvarg och hallon.",
+    "Lägg havregryn separat.",
+    "Förvara kallt."
+  ]
+},
+{
+  name:"Banan och havrerutor",
+  type:"mellanmål",
+  proteinSource:"Vegetariskt",
+  kcal:200,
+  protein:7,
+  travel:true,
+  methods:["ugn","airfryer"],
+  allergens:["jordnötter"],
+  ingredients:[
+    {name:"Banan",amount:1,unit:"st"},
+    {name:"Havregryn",amount:30,unit:"g"},
+    {name:"Jordnötssmör",amount:10,unit:"g"}
+  ],
+  steps:[
+    "Mosa bananen och blanda med övriga ingredienser.",
+    "Forma små rutor.",
+    "Baka i ugn på 175 grader cirka 20 minuter.",
+    "Låt svalna."
+  ]
+},
+{
+  name:"Ägg och äpple",
+  type:"mellanmål",
+  proteinSource:"Ägg",
+  kcal:230,
+  protein:13,
+  travel:true,
+  methods:["spis"],
+  allergens:["ägg"],
+  ingredients:[
+    {name:"Ägg",amount:2,unit:"st"},
+    {name:"Äpple",amount:1,unit:"st"}
+  ],
+  steps:[
+    "Koka äggen hårda.",
+    "Kyl snabbt och packa med ett äpple.",
+    "Använd kylklamp."
+  ]
 }
-function allowed(r,travel){
+];
+
+// Läs in tidigare sparade recept och inställningar.
+let state;
+try {
+  state = JSON.parse(localStorage.getItem(KEY));
+} catch(e) {}
+
+if (!state || !Array.isArray(state.recipes)) {
+  state = {
+    recipes:seed,
+    settings:{},
+    menu:[]
+  };
+}
+
+if (!Array.isArray(state.menu)) state.menu = [];
+if (!state.settings) state.settings = {};
+
+function el(id) {
+  return document.getElementById(id);
+}
+
+function save() {
+  localStorage.setItem(KEY,JSON.stringify(state));
+}
+
+function escapeHTML(s) {
+  return String(s ?? "").replace(/[&<>"']/g,c=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[c]));
+}
+
+function checked(cls) {
+  return [...document.querySelectorAll("." + cls + ":checked")]
+    .map(x=>x.value);
+}
+
+function init() {
+  const s = state.settings;
+  const enabled = s.enabledMeals || {};
+
+  // Val av måltider för varje dag.
+  el("mealSelection").innerHTML =
+    `<table>
+      <thead>
+        <tr>
+          <th>Dag</th>
+          <th>Hela dagen</th>
+          ${TYPES.map(t=>`<th>${escapeHTML(t)}</th>`).join("")}
+        </tr>
+      </thead>
+      <tbody>` +
+    DAYS.map((day,i)=>{
+      const chosen = enabled[i] || TYPES;
+
+      return `<tr>
+        <td>${day}</td>
+        <td>
+          <input type="checkbox"
+            class="whole-day"
+            data-day="${i}"
+            ${TYPES.every(t=>chosen.includes(t))?"checked":""}>
+        </td>
+        ${TYPES.map(t=>`
+          <td>
+            <input type="checkbox"
+              class="meal-enabled"
+              data-day="${i}"
+              value="${t}"
+              ${chosen.includes(t)?"checked":""}>
+          </td>
+        `).join("")}
+      </tr>`;
+    }).join("") +
+    "</tbody></table>";
+
+  el("mealSelection").addEventListener("change",e=>{
+    const x = e.target;
+    const day = x.dataset.day;
+
+    if (x.classList.contains("whole-day")) {
+      document.querySelectorAll(
+        `.meal-enabled[data-day="${day}"]`
+      ).forEach(c=>c.checked=x.checked);
+    }
+
+    if (x.classList.contains("meal-enabled")) {
+      const all = [...document.querySelectorAll(
+        `.meal-enabled[data-day="${day}"]`
+      )];
+
+      document.querySelector(
+        `.whole-day[data-day="${day}"]`
+      ).checked = all.every(c=>c.checked);
+    }
+  });
+
+  // Lunchtyper.
+  el("lunchDays").innerHTML = DAYS.map((day,i)=>`
+    <label class="day">
+      ${day}
+      <select class="lunch-choice" data-day="${i}">
+        <option value="home">Lunch hemma</option>
+        <option value="cold">Reslunch utan uppvärmning</option>
+        <option value="heat">Matlåda med uppvärmning</option>
+      </select>
+    </label>
+  `).join("");
+
+  document.querySelectorAll(".lunch-choice").forEach(x=>{
+    x.value = (s.lunchTypes || LUNCH_DEFAULT)[
+      Number(x.dataset.day)
+    ] || "home";
+  });
+
+  // Resdagar.
+  el("days").innerHTML = DAYS.map((day,i)=>`
+    <label class="day">
+      <input type="checkbox" class="travelday" value="${i}">
+      ${day}
+    </label>
+  `).join("");
+
+  // Tillagningsmetoder.
+  el("methods").innerHTML = METHODS.map(m=>`
+    <label class="day">
+      <input type="checkbox" class="method" value="${m}" checked>
+      ${m}
+    </label>
+  `).join("");
+
+  // Allergener.
+  el("allergens").innerHTML = ALLERGENS.map(a=>`
+    <label class="day">
+      <input type="checkbox" class="allergen" value="${a}">
+      ${a}
+    </label>
+  `).join("");
+
+  if (s.calories) el("calories").value = s.calories;
+  if (s.people) el("people").value = s.people;
+  if (s.budget !== undefined) el("budget").value = s.budget;
+
+  document.querySelectorAll(".travelday").forEach(x=>{
+    x.checked = (s.travelDays || []).includes(Number(x.value));
+  });
+
+  document.querySelectorAll(".travelmeal").forEach(x=>{
+    x.checked = (s.travelMeals || ["mellanmål"]).includes(x.value);
+  });
+
+  document.querySelectorAll(".method").forEach(x=>{
+    x.checked = (s.methods || METHODS).includes(x.value);
+  });
+
+  document.querySelectorAll(".allergen").forEach(x=>{
+    x.checked = (s.allergens || []).includes(x.value);
+  });
+
+  renderBank();
+  renderMenu();
+}
+
+function saveSettings(showMessage=true) {
+  state.settings = {
+    enabledMeals:Object.fromEntries(
+      DAYS.map((d,i)=>[
+        i,
+        [...document.querySelectorAll(
+          `.meal-enabled[data-day="${i}"]:checked`
+        )].map(x=>x.value)
+      ])
+    ),
+    calories:Number(el("calories").value),
+    people:Number(el("people").value),
+    budget:Number(el("budget").value),
+    travelDays:checked("travelday").map(Number),
+    lunchTypes:[
+      ...document.querySelectorAll(".lunch-choice")
+    ].map(x=>x.value),
+    travelMeals:checked("travelmeal"),
+    methods:checked("method"),
+    allergens:checked("allergen")
+  };
+
+  save();
+
+  if (showMessage) {
+    alert("Inställningarna sparade.");
+  }
+}
+
+// Kontrollera vilka recept som är tillåtna.
+function allowed(r,travel) {
   const s = state.settings;
   const excluded = s.allergens || [];
 
-  // Kontrollera att receptet har nödvändiga uppgifter
-  if(!Array.isArray(r.allergens)) return false;
-  if(!Array.isArray(r.methods)) return false;
+  if (!Array.isArray(r.allergens)) return false;
+  if (!Array.isArray(r.methods)) return false;
 
-  // Om allergier är valda krävs verifierad allergenstatus
-  if(excluded.length > 0 && r.allergenStatus !== "verified") return false;
+  if (
+    excluded.length > 0 &&
+    r.allergenStatus !== "verified"
+  ) return false;
 
-  // Uteslut recept som innehåller valda allergener
-  if(r.allergens.some(a => excluded.includes(a))) return false;
+  if (r.allergens.some(a=>excluded.includes(a))) {
+    return false;
+  }
 
-  // Kontrollera tillagningsmetod
-  if(!r.methods.some(m => (s.methods || METHODS).includes(m))) return false;
+  if (!r.methods.some(m=>
+    (s.methods || METHODS).includes(m)
+  )) return false;
 
-  // På resdagar krävs ett recept som kan tas med
-  if(travel && !r.travel) return false;
+  if (travel && !r.travel) return false;
 
   return true;
 }
-function pickRecipe(type,travel,used){
-let candidates=state.recipes.filter(r=>r.type===type&&allowed(r,travel));
-if(!candidates.length&&travel)candidates=state.recipes.filter(r=>r.type===type&&allowed(r,false));
-if(!candidates.length)return null;
-let unused=candidates.filter(r=>!used.includes(r.name));
-let pool=unused.length?unused:candidates;
-return pool[Math.floor(Math.random()*pool.length)];
+
+// Klassificera lunchrecept.
+function lunchKind(r) {
+  if (["cold","heat","home"].includes(r.lunchMode)) {
+    return r.lunchMode;
+  }
+
+  const name = (r.name || "").toLocaleLowerCase("sv");
+
+  if (/wrap|macka|smörgås|sallad|tonfisk|räksallad/.test(name)) {
+    return "cold";
+  }
+
+  if (/gryta|ris|pasta|bulgur|biff|färs|lins|potatis/.test(name)) {
+    return "heat";
+  }
+
+  return r.travel ? "cold" : "home";
 }
-function generateMenu(){
-saveSettings();
-const used=[],menu=[];
-DAYS.forEach((day,i)=>{
-let meals=[];
-TYPES.forEach(type=>{
-const travel=(state.settings.travelDays||[]).includes(i)&&(state.settings.travelMeals||[]).includes(type);
-let r=pickRecipe(type,travel,used);
-if(r)used.push(r.name);
-meals.push({type,travel,recipe:r?r.name:null});
-});
-menu.push({day,meals});
-});
-state.menu=menu;save();renderMenu();
+
+function lunchAllowed(r,kind) {
+  if (!allowed(r,false)) return false;
+
+  if (kind === "cold") {
+    return lunchKind(r) === "cold";
+  }
+
+  if (kind === "heat") {
+    return lunchKind(r) === "heat";
+  }
+
+  return true;
 }
-function getRecipe(name){return state.recipes.find(r=>r.name===name)}
-function renderMenu(){
-if(!state.menu.length){el("menu").innerHTML="<p>Ingen veckomeny skapad ännu.</p>";renderShopping();return}
-el("menu").innerHTML='<div class="grid">'+state.menu.map(d=>`<div class="card"><h3>${d.day}</h3>${d.meals.map(m=>{
-let r=getRecipe(m.recipe);
-return `<div class="meal"><b>${m.type}</b> ${m.travel?'<span class="tag">Resdag</span>':""}<p>${r?escapeHTML(r.name):"Inget passande recept"}</p>${r?`<span class="small">${r.kcal} kcal · ${r.protein} g protein</span><p><button class="secondary" onclick='showRecipe(${JSON.stringify(r.name)})'>Visa recept</button></p>`:""}</div>`
-}).join("")}</div>`).join("")+'</div>';
-renderShopping();
+
+// Välj recept till veckomenyn.
+function pickRecipe(type,travel,used,lunchMode) {
+  let candidates = state.recipes.filter(r=>
+    r.type === type &&
+    (
+      type === "lunch"
+        ? lunchAllowed(r,lunchMode || "home")
+        : allowed(r,travel)
+    )
+  );
+
+  if (!candidates.length) return null;
+
+  const unused = candidates.filter(r=>!used.includes(r.name));
+  const pool = unused.length ? unused : candidates;
+
+  return pool[Math.floor(Math.random()*pool.length)];
 }
-function showRecipe(name){
-const r=getRecipe(name);if(!r)return;
-const ingredients=r.ingredients.map(i=>`${i.amount} ${i.unit} ${i.name}`).join("\n");
-alert(r.name+"\n\n"+r.kcal+" kcal · "+r.protein+" g protein\n\nIngredienser:\n"+ingredients+"\n\nTillagning:\n"+r.steps.map((s,i)=>(i+1)+". "+s).join("\n")+"\n\nMetoder: "+r.methods.join(", ")+"\nAllergener: "+(r.allergens.join(", ")||"Inga deklarerade i receptet; kontrollera produkter."));
+
+function generateMenu() {
+  saveSettings(false);
+
+  const used = [];
+  const menu = [];
+
+  DAYS.forEach((day,i)=>{
+    const meals = [];
+
+    TYPES.forEach(type=>{
+      const enabled = state.settings.enabledMeals?.[i] || TYPES;
+
+      if (!enabled.includes(type)) return;
+
+      const lunchMode =
+        (state.settings.lunchTypes || LUNCH_DEFAULT)[i] || "home";
+
+      const travel = type === "lunch"
+        ? lunchMode !== "home"
+        : (state.settings.travelDays || []).includes(i) &&
+          (state.settings.travelMeals || []).includes(type);
+
+      const r = pickRecipe(type,travel,used,lunchMode);
+
+      if (r) used.push(r.name);
+
+      meals.push({
+        type,
+        travel,
+        lunchMode:type === "lunch" ? lunchMode : null,
+        recipe:r ? r.name : null
+      });
+    });
+
+    menu.push({day,meals});
+  });
+
+  state.menu = menu;
+  save();
+  renderMenu();
 }
-function shoppingText(){
-const items=new Map();
-let totalKcal=0;
-const people=state.settings.people||1;
-state.menu.forEach(d=>d.meals.forEach(m=>{
-const r=getRecipe(m.recipe);if(!r)return;
-totalKcal+=r.kcal;
-r.ingredients.forEach(i=>{
-let key=i.name.toLowerCase()+"|"+i.unit;
-let v=items.get(key)||{name:i.name,unit:i.unit,amount:0};
-v.amount+=i.amount*people;items.set(key,v);
-});
-}));
-const lines=[...items.values()].sort((a,b)=>a.name.localeCompare(b.name,"sv")).map(i=>`☐ ${i.name}: ${Math.round(i.amount*10)/10} ${i.unit}`);
-return {text:lines.join("\n"),count:items.size,totalKcal};
+
+function getRecipe(name) {
+  return state.recipes.find(r=>r.name === name);
 }
-function renderShopping(){
-const s=shoppingText();
-el("shopping").innerHTML=state.menu.length?`<p>${s.count} olika inköpsposter</p><pre>${escapeHTML(s.text)}</pre><p class="small">Totalt planerade kalorier per person under veckan: cirka ${s.totalKcal} kcal. Detta är inte ett fullständigt dagsbehov om måltider saknas.</p>`:"<p>Skapa en veckomeny först.</p>";
+
+// Bild eller automatisk illustration.
+function recipeImage(r) {
+  if (
+    r &&
+    typeof r.image === "string" &&
+    /^https:\/\//i.test(r.image)
+  ) {
+    return r.image;
+  }
+
+  const col = FOOD_COLORS[r?.proteinSource] || "#79ae9a";
+
+  const svg = `
+  <svg xmlns="http://www.w3.org/2000/svg"
+    width="600" height="360" viewBox="0 0 600 360">
+    <rect width="600" height="360" fill="#eaf1e8"/>
+    <circle cx="300" cy="180" r="135"
+      fill="#fff" stroke="#d6dfd7" stroke-width="12"/>
+    <circle cx="300" cy="180" r="100" fill="${col}"/>
+    <circle cx="270" cy="155" r="34" fill="#fff4d2"/>
+    <circle cx="342" cy="208" r="27" fill="#a8cc87"/>
+    <circle cx="235" cy="216" r="19" fill="#86b879"/>
+    <circle cx="355" cy="137" r="22" fill="#f3d38b"/>
+  </svg>`;
+
+  return "data:image/svg+xml;charset=utf-8," +
+    encodeURIComponent(svg);
 }
-function copyShopping(){
-navigator.clipboard.writeText(shoppingText().text).then(()=>alert("Inköpslistan kopierad.")).catch(()=>alert("Kopiering blockerades av webbläsaren."));
+
+// Hämta möjliga recept vid byte.
+function recipeOptions(type,dayIndex,meal) {
+  const s = state.settings;
+
+  const mode = meal.lunchMode ||
+    (s.lunchTypes || LUNCH_DEFAULT)[dayIndex] ||
+    "home";
+
+  return state.recipes
+    .map((r,i)=>({r,i}))
+    .filter(({r})=>
+      r.type === type &&
+      (
+        type === "lunch"
+          ? lunchAllowed(r,mode)
+          : allowed(r,meal.travel)
+      )
+    );
 }
-function validateRecipe(r){
-if(!r||typeof r.name!=="string"||!TYPES.includes(r.type))return false;
-if(!Number.isFinite(Number(r.kcal))||!Number.isFinite(Number(r.protein)))return false;
-if(!Array.isArray(r.ingredients)||!Array.isArray(r.steps)||!Array.isArray(r.methods)||!Array.isArray(r.allergens))return false;
-if(!r.ingredients.every(i=>typeof i.name==="string"&&Number.isFinite(Number(i.amount))&&typeof i.unit==="string"))return false;
-return true;
+
+// Byt recept för en enskild måltid.
+function changeMealRecipe(dayIndex,mealIndex,recipeIndex) {
+  const day = state.menu[dayIndex];
+
+  if (!day || !day.meals[mealIndex]) return;
+
+  const meal = day.meals[mealIndex];
+
+  if (recipeIndex === -1) {
+    meal.recipe = null;
+    save();
+    renderMenu();
+    return;
+  }
+
+  const options = recipeOptions(meal.type,dayIndex,meal);
+  const selected = options.find(x=>x.i === recipeIndex);
+
+  if (!selected) return;
+
+  meal.recipe = selected.r.name;
+
+  save();
+  renderMenu();
 }
-function importRecipes(){
-try{
-let obj=JSON.parse(el("recipeJSON").value);
-let arr=Array.isArray(obj)?obj:obj.recipes;
-if(!Array.isArray(arr))throw Error("JSON måste innehålla en lista med recipes.");
-let count=0,skipped=0;
-arr.forEach(r=>{
-if(!validateRecipe(r)){skipped++;return}
-r.name=r.name.trim();
-r.kcal=Number(r.kcal);r.protein=Number(r.protein);
-r.travel=Boolean(r.travel);
-r.allergens=r.allergens.map(x=>String(x).toLowerCase());
-r.methods=r.methods.map(x=>String(x).toLowerCase());
-r.ingredients=r.ingredients.map(i=>({...i,amount:Number(i.amount)}));
-let ix=state.recipes.findIndex(x=>x.name.toLowerCase()===r.name.toLowerCase()&&x.type===r.type);
-if(ix>=0)state.recipes[ix]=r;else state.recipes.push(r);
-count++;
-});
-save();renderBank();
-el("importStatus").textContent=count+" recept importerade/uppdaterade. "+skipped+" hoppades över.";
-}catch(e){el("importStatus").textContent="Importfel: "+e.message}
+
+// Räkna dagens kalorier och protein.
+function dayTotals(day) {
+  return day.meals.reduce((sum,m)=>{
+    const r = getRecipe(m.recipe);
+
+    if (r) {
+      sum.kcal += Number(r.kcal) || 0;
+      sum.protein += Number(r.protein) || 0;
+    }
+
+    return sum;
+  },{kcal:0,protein:0});
 }
+
+// Visa veckomenyn.
+function renderMenu() {
+  if (!state.menu.length) {
+    el("menu").innerHTML =
+      "<p>Ingen veckomeny skapad ännu.</p>";
+    renderShopping();
+    return;
+  }
+
+  const goal = Number(state.settings.calories) || 2200;
+
+  el("menu").innerHTML =
+    '<div class="grid">' +
+    state.menu.map((day,di)=>{
+      const totals = dayTotals(day);
+      const diff = goal - totals.kcal;
+
+      const mealsHTML = day.meals.length
+        ? day.meals.map((meal,mi)=>{
+            const r = getRecipe(meal.recipe);
+
+            const label = meal.type === "lunch"
+              ? LUNCH_LABEL[meal.lunchMode || "home"]
+              : meal.travel ? "Resdag" : "";
+
+            const options = recipeOptions(meal.type,di,meal);
+
+            const choices = options.map(({r:opt,i})=>`
+              <option value="${i}"
+                ${meal.recipe === opt.name ? "selected" : ""}>
+                ${escapeHTML(opt.name)}
+                (${opt.kcal} kcal · ${opt.protein} g protein)
+              </option>
+            `).join("");
+
+            return `
+              <div class="meal">
+                <b>${escapeHTML(meal.type)}</b>
+                ${label
+                  ? `<span class="tag">${escapeHTML(label)}</span>`
+                  : ""
+                }
+
+                <div class="meal-line">
+                  ${r
+                    ? `<img class="meal-photo"
+                        src="${escapeHTML(recipeImage(r))}"
+                        alt="${escapeHTML(r.name)}">`
+                    : ""
+                  }
+                  <span>
+                    ${r
+                      ? escapeHTML(r.name)
+                      : "Inget recept valt"
+                    }
+                  </span>
+                </div>
+
+                ${r
+                  ? `<span class="small">
+                      ${r.kcal} kcal · ${r.protein} g protein
+                    </span>
+                    <p>
+                      <button class="secondary"
+                        onclick="showRecipeByIndex(${state.recipes.indexOf(r)})">
+                        Visa recept
+                      </button>
+                    </p>`
+                  : ""
+                }
+
+                <label class="small">
+                  Byt recept från receptbanken
+                  <select class="recipe-change"
+                    onchange="changeMealRecipe(${di},${mi},Number(this.value))">
+
+                    <option value="-1" ${!r?"selected":""}>
+                      Välj recept / ingen måltid
+                    </option>
+
+                    ${choices}
+                  </select>
+                </label>
+              </div>`;
+          }).join("")
+        : '<p class="small">Ingen måltid planerad denna dag.</p>';
+
+      return `
+        <div class="card">
+          <h3>${escapeHTML(day.day)}</h3>
+
+          ${mealsHTML}
+
+          <div class="day-total">
+            Dagens summa:
+            ${Math.round(totals.kcal)} kcal ·
+            ${Math.round(totals.protein)} g protein
+
+            <span class="small">
+              ${diff >= 0
+                ? `${Math.round(diff)} kcal kvar till ditt mål på ${goal} kcal`
+                : `${Math.round(-diff)} kcal över ditt mål på ${goal} kcal`
+              }
+            </span>
+          </div>
+        </div>`;
+    }).join("") +
+    "</div>";
+
+  // Inköpslistan uppdateras vid varje receptbyte.
+  renderShopping();
+}
+
+function showRecipeByIndex(i) {
+  const r = state.recipes[i];
+  if (r) showRecipe(r.name);
+}
+
+function showRecipe(name) {
+  const r = getRecipe(name);
+  if (!r) return;
+
+  const ingredients = r.ingredients.map(i=>
+    `${i.amount} ${i.unit} ${i.name}`
+  ).join("\n");
+
+  alert(
+    r.name +
+    "\n\n" +
+    r.kcal + " kcal · " + r.protein + " g protein" +
+    "\n\nIngredienser:\n" +
+    ingredients +
+    "\n\nTillagning:\n" +
+    r.steps.map((s,i)=>(i+1)+". "+s).join("\n") +
+    "\n\nMetoder: " + r.methods.join(", ") +
+    "\nAllergener: " +
+    (r.allergens.join(", ") || "Inga deklarerade")
+  );
+}
+
+// Normalisering av ingrediensnamn.
+const INGREDIENT_ALIASES = {
+  "tomat":"Tomater",
+  "tomater":"Tomater",
+  "potatis":"Potatis",
+  "morot":"Morötter",
+  "morötter":"Morötter",
+  "paprika":"Paprika",
+  "gurka":"Gurka",
+  "broccoli":"Broccoli",
+  "spenat":"Spenat",
+  "kycklingfilé":"Kycklingfilé",
+  "kycklingfile":"Kycklingfilé",
+  "ägg":"Ägg",
+  "naturell lättkvarg":"Naturell lättkvarg",
+  "lättkvarg":"Naturell lättkvarg",
+  "ris, torrt":"Ris (torrt)",
+  "ris, torr":"Ris (torrt)",
+  "ris torrt":"Ris (torrt)",
+  "röda linser":"Röda linser (torra)",
+  "röda linser, torra":"Röda linser (torra)",
+  "krossade tomater":"Krossade tomater",
+  "gröna ärtor":"Gröna ärtor",
+  "tonfisk i vatten, avrunnen":"Tonfisk i vatten (avrunnen)",
+  "kidneybönor, avrunna":"Kidneybönor (avrunna)",
+  "vita bönor, avrunna":"Vita bönor (avrunna)"
+};
+
+function normalizeIngredient(name) {
+  const key = String(name)
+    .trim()
+    .toLocaleLowerCase("sv")
+    .replace(/\s+/g," ");
+
+  return INGREDIENT_ALIASES[key] ||
+    String(name).trim().replace(/^./,c=>
+      c.toLocaleUpperCase("sv")
+    );
+}
+
+// Omvandla måttenheter.
+function normalizeUnit(unit,amount) {
+  let u = String(unit).trim().toLowerCase();
+  let a = Number(amount);
+
+  const names = {
+    "gram":"g",
+    "stycken":"st",
+    "styck":"st",
+    "liter":"l"
+  };
+
+  u = names[u] || u;
+
+  if (u === "kg") {
+    u = "g";
+    a *= 1000;
+  }
+
+  if (u === "l") {
+    u = "ml";
+    a *= 1000;
+  }
+
+  if (u === "dl") {
+    u = "ml";
+    a *= 100;
+  }
+
+  if (u === "cl") {
+    u = "ml";
+    a *= 10;
+  }
+
+  return {unit:u,amount:a};
+}
+
+// Sortera inköpslistan.
+function categoryFor(name) {
+  const n = name.toLocaleLowerCase("sv");
+
+  if (/kyckling|kalkon|nötfärs|lamm|fläsk|lax|torsk|tonfisk|räkor/.test(n)) {
+    return "Kött, fisk och skaldjur";
+  }
+
+  if (/kvarg|keso|mjölk|yoghurt|crème fraiche|ost/.test(n)) {
+    return "Mejeri";
+  }
+
+  if (/ris|pasta|bulgur|couscous|havre|tortilla|bröd|quinoa|linser|bönor|kikärtor|majs/.test(n)) {
+    return "Torrvaror och konserver";
+  }
+
+  if (/olja|kanel|jordnötssmör/.test(n)) {
+    return "Oljor och övrigt";
+  }
+
+  return "Frukt, grönt och ägg";
+}
+
+// Sammanställ ingredienser från valda recept.
+function shoppingItems() {
+  const items = new Map();
+  let totalKcal = 0;
+
+  const people = Number(state.settings.people) || 1;
+
+  state.menu.forEach(day=>{
+    day.meals.forEach(meal=>{
+      const r = getRecipe(meal.recipe);
+      if (!r) return;
+
+      totalKcal += Number(r.kcal) || 0;
+
+      r.ingredients.forEach(i=>{
+        const name = normalizeIngredient(i.name);
+        const v = normalizeUnit(i.unit,i.amount);
+        const key = name.toLocaleLowerCase("sv") + "|" + v.unit;
+
+        if (!items.has(key)) {
+          items.set(key,{
+            name,
+            unit:v.unit,
+            amount:0
+          });
+        }
+
+        items.get(key).amount += v.amount * people;
+      });
+    });
+  });
+
+  return {
+    items:[...items.values()].sort((a,b)=>
+      a.name.localeCompare(b.name,"sv")
+    ),
+    totalKcal
+  };
+}
+
+function shoppingText() {
+  const {items,totalKcal} = shoppingItems();
+
+  return {
+    text:items.map(i=>
+      `☐ ${i.name}: ${Math.round(i.amount*10)/10} ${i.unit}`
+    ).join("\n"),
+    count:items.length,
+    totalKcal
+  };
+}
+
+function renderShopping() {
+  if (!state.menu.length) {
+    el("shopping").innerHTML =
+      "<p>Skapa en veckomeny först.</p>";
+    return;
+  }
+
+  const {items,totalKcal} = shoppingItems();
+
+  const cats = [
+    ...new Set(items.map(i=>categoryFor(i.name)))
+  ];
+
+  el("shopping").innerHTML =
+    `<p><b>${items.length} sammanställda inköpsposter</b></p>` +
+    cats.map(cat=>`
+      <div class="shopping-group">
+        <h3>${escapeHTML(cat)}</h3>
+
+        ${items.filter(i=>
+          categoryFor(i.name) === cat
+        ).map(i=>`
+          <label class="shopping-item">
+            <input type="checkbox">
+            ${escapeHTML(i.name)}:
+            ${Math.round(i.amount*10)/10}
+            ${escapeHTML(i.unit)}
+          </label>
+        `).join("")}
+      </div>
+    `).join("") +
+    `<p class="small">
+      Totalt planerade kalorier per person under veckan:
+      cirka ${totalKcal} kcal.
+    </p>`;
+}
+
+function copyShopping() {
+  navigator.clipboard.writeText(shoppingText().text)
+    .then(()=>alert("Inköpslistan kopierad."))
+    .catch(()=>alert("Kopiering blockerades av webbläsaren."));
+}
+
+// Kontrollera importerade recept.
+function validateRecipe(r) {
+  if (
+    !r ||
+    typeof r.name !== "string" ||
+    !TYPES.includes(r.type)
+  ) return false;
+
+  if (
+    !Number.isFinite(Number(r.kcal)) ||
+    !Number.isFinite(Number(r.protein))
+  ) return false;
+
+  if (
+    !Array.isArray(r.ingredients) ||
+    !Array.isArray(r.steps) ||
+    !Array.isArray(r.methods) ||
+    !Array.isArray(r.allergens)
+  ) return false;
+
+  return r.ingredients.every(i=>
+    typeof i.name === "string" &&
+    Number.isFinite(Number(i.amount)) &&
+    typeof i.unit === "string"
+  );
+}
+
+// Importera nya recept.
+function importRecipes() {
+  try {
+    const obj = JSON.parse(el("recipeJSON").value);
+    const arr = Array.isArray(obj) ? obj : obj.recipes;
+
+    if (!Array.isArray(arr)) {
+      throw Error("JSON måste innehålla en lista med recipes.");
+    }
+
+    let count = 0;
+    let skipped = 0;
+
+    arr.forEach(r=>{
+      if (!validateRecipe(r)) {
+        skipped++;
+        return;
+      }
+
+      r.name = r.name.trim();
+      r.kcal = Number(r.kcal);
+      r.protein = Number(r.protein);
+      r.travel = Boolean(r.travel);
+
+      r.allergens = r.allergens.map(x=>
+        String(x).toLowerCase()
+      );
+
+      r.methods = r.methods.map(x=>
+        String(x).toLowerCase()
+      );
+
+      r.ingredients = r.ingredients.map(i=>({
+        ...i,
+        amount:Number(i.amount)
+      }));
+
+      const ix = state.recipes.findIndex(x=>
+        x.name.toLowerCase() === r.name.toLowerCase() &&
+        x.type === r.type
+      );
+
+      if (ix >= 0) {
+        if (!r.image) {
+          r.image = state.recipes[ix].image || "";
+        }
+        state.recipes[ix] = r;
+      } else {
+        state.recipes.push(r);
+      }
+
+      count++;
+    });
+
+    save();
+    renderBank();
+
+    el("importStatus").textContent =
+      count + " recept importerade/uppdaterade. " +
+      skipped + " hoppades över.";
+
+  } catch(e) {
+    el("importStatus").textContent =
+      "Importfel: " + e.message;
+  }
+}
+
+// Läs in JSON-fil.
 el("jsonFile").addEventListener("change",async e=>{
-let file=e.target.files[0];if(file)el("recipeJSON").value=await file.text();
+  const file = e.target.files[0];
+
+  if (file) {
+    el("recipeJSON").value = await file.text();
+  }
 });
-function renderBank(){
-el("recipeBank").innerHTML=`<p><b>${state.recipes.length} recept i receptbanken</b></p><div class="grid">`+
-state.recipes.map(r=>`<div class="card"><b>${escapeHTML(r.name)}</b><p class="small">${escapeHTML(r.type)} · ${r.kcal} kcal · ${r.protein} g protein</p><span class="tag">${escapeHTML(r.proteinSource||"Övrigt")}</span>${r.travel?'<span class="tag">Resvänligt</span>':""}<p><button class="secondary" onclick='showRecipe(${JSON.stringify(r.name)})'>Visa recept</button></p></div>`).join("")+"</div>";
+
+// Spara bildadress för ett recept.
+function setRecipeImage(index,url) {
+  const r = state.recipes[index];
+  if (!r) return;
+
+  const value = url.trim();
+
+  if (value && !/^https:\/\//i.test(value)) {
+    alert("Ange en bildadress som börjar med https://");
+    return;
+  }
+
+  r.image = value;
+  save();
+  renderBank();
+  renderMenu();
 }
-const agentPrompt=`Ge mig nya proteinrika och kalorisnåla recept för Matplaneraren – Coop som ENBART giltig JSON. Format: {"recipes":[{"name":"Receptnamn","type":"lunch","proteinSource":"Kyckling","kcal":450,"protein":40,"travel":true,"methods":["spis","airfryer"],"allergens":["gluten"],"allergenStatus":"verified","ingredients":[{"name":"Kycklingfilé","amount":150,"unit":"g"}],"steps":["Steg 1","Steg 2"]}]}. Typ ska vara frukost, lunch, middag eller mellanmål. Ingredienser ska anges per portion. Markera osäker allergenstatus som "unknown". Ange bara allergenStatus "verified" om alla ingredienser verkligen har verifierats; annars utelämna fältet. Använd vanliga Coop-råvaror. För resmat: ange travel true endast om rätten är praktisk att ta med, och beskriv säker kylförvaring i stegen. Ta med tillagningstemperatur och tid i stegen. Hitta varierade recept och undvik dubbletter.`;
-function copyAgentPrompt(){
-navigator.clipboard.writeText(agentPrompt).then(()=>alert("Agentinstruktionen kopierad.")).catch(()=>prompt("Kopiera texten:",agentPrompt));
+
+// Visa receptbanken.
+function renderBank() {
+  el("recipeBank").innerHTML =
+    `<p><b>${state.recipes.length} recept i receptbanken</b></p>
+     <div class="grid">` +
+    state.recipes.map((r,i)=>`
+      <div class="card">
+
+        <img class="recipe-photo"
+          src="${escapeHTML(recipeImage(r))}"
+          alt="${escapeHTML(r.name)}">
+
+        <h3>${escapeHTML(r.name)}</h3>
+
+        <p class="small">
+          ${escapeHTML(r.type)} ·
+          ${r.kcal} kcal ·
+          ${r.protein} g protein
+        </p>
+
+        <span class="tag">
+          ${escapeHTML(r.proteinSource || "Övrigt")}
+        </span>
+
+        ${r.type === "lunch"
+          ? `<span class="tag">
+              ${escapeHTML(LUNCH_LABEL[lunchKind(r)])}
+            </span>`
+          : ""
+        }
+
+        <p>
+          <button class="secondary"
+            onclick="showRecipeByIndex(${i})">
+            Visa recept
+          </button>
+        </p>
+
+        <label class="small">
+          Bildadress (valfritt)
+          <input class="image-input"
+            type="url"
+            placeholder="https://..."
+            value="${escapeHTML(r.image || "")}"
+            onchange="setRecipeImage(${i},this.value)">
+        </label>
+      </div>
+    `).join("") +
+    "</div>";
 }
-function exportData(){
-const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
-const url=URL.createObjectURL(blob);
-const a=document.createElement("a");a.href=url;a.download="matplaneraren-backup.json";a.click();
-setTimeout(()=>URL.revokeObjectURL(url),1000);
+
+// Instruktion till receptagenten.
+const agentPrompt = `
+Ge mig nya proteinrika och kalorisnåla recept
+för Matplaneraren – Coop som ENBART giltig JSON.
+
+Format:
+{
+  "recipes":[
+    {
+      "name":"Receptnamn",
+      "type":"lunch",
+      "proteinSource":"Kyckling",
+      "kcal":450,
+      "protein":40,
+      "travel":true,
+      "lunchMode":"cold",
+      "methods":["spis"],
+      "allergens":["gluten"],
+      "allergenStatus":"unknown",
+      "ingredients":[
+        {
+          "name":"Kycklingfilé",
+          "amount":150,
+          "unit":"g"
+        }
+      ],
+      "steps":["Steg 1","Steg 2"]
+    }
+  ]
 }
-function resetDemo(){
-if(confirm("Återställa receptbanken till exempelrecept?")){
-state.recipes=structuredClone(seed);state.menu=[];save();renderBank();renderMenu();
-}}
+
+Typer: frukost, lunch, middag eller mellanmål.
+Ingredienser anges per portion.
+Använd vanliga Coop-råvaror.
+
+LunchMode:
+cold = kall reslunch
+heat = matlåda med uppvärmning
+home = lunch hemma
+
+Ange allergenStatus verified endast om
+allergenerna verkligen har verifierats.
+Använd annars unknown.
+
+Ange travel true endast om maten är
+praktisk att transportera.
+
+Undvik dubbletter.
+`;
+
+function copyAgentPrompt() {
+  navigator.clipboard.writeText(agentPrompt)
+    .then(()=>alert("Agentinstruktionen kopierad."))
+    .catch(()=>prompt("Kopiera texten:",agentPrompt));
+}
+
+// Exportera säkerhetskopia.
+function exportData() {
+  const blob = new Blob(
+    [JSON.stringify(state,null,2)],
+    {type:"application/json"}
+  );
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+
+  a.href = url;
+  a.download = "matplaneraren-backup.json";
+  a.click();
+
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+// Återställ exempelrecept.
+function resetDemo() {
+  if (confirm(
+    "Återställa receptbanken till exempelrecept? " +
+    "Importerade recept tas då bort."
+  )) {
+    state.recipes = structuredClone(seed);
+    state.menu = [];
+    save();
+    renderBank();
+    renderMenu();
+  }
+}
+
+// Starta appen.
 init();
 </script>
+
 </body>
 </html>
-
