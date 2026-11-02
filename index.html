@@ -850,47 +850,75 @@ function pickRecipe(type,travel,used,lunchMode) {
   return pool[Math.floor(Math.random()*pool.length)];
 }
 
+
 function generateMenu() {
-  saveSettings(false);
+  try {
+    saveSettings(false);
 
-  const used = [];
-  const menu = [];
+    const used = [];
+    const menu = [];
 
-  DAYS.forEach((day,i)=>{
-    const meals = [];
+    DAYS.forEach((day, i) => {
+      const meals = [];
 
-    TYPES.forEach(type=>{
-      const enabled = state.settings.enabledMeals?.[i] || TYPES;
+      const enabled = state.settings.enabledMeals?.[i];
 
-      if (!enabled.includes(type)) return;
+      const selectedTypes = Array.isArray(enabled)
+        ? enabled
+        : TYPES;
 
-      const lunchMode =
-        (state.settings.lunchTypes || LUNCH_DEFAULT)[i] || "home";
+      TYPES.forEach(type => {
+        if (!selectedTypes.includes(type)) return;
 
-      const travel = type === "lunch"
-        ? lunchMode !== "home"
-        : (state.settings.travelDays || []).includes(i) &&
-          (state.settings.travelMeals || []).includes(type);
+        const lunchMode =
+          (state.settings.lunchTypes || LUNCH_DEFAULT)[i] || "home";
 
-      const r = pickRecipe(type,travel,used,lunchMode);
+        const travel = type === "lunch"
+          ? lunchMode === "cold"
+          : (state.settings.travelDays || []).includes(i) &&
+            (state.settings.travelMeals || []).includes(type);
 
-      if (r) used.push(r.name);
+        const recipe = pickRecipe(
+          type,
+          travel,
+          used,
+          lunchMode
+        );
 
-      meals.push({
-        type,
-        travel,
-        lunchMode:type === "lunch" ? lunchMode : null,
-        recipe:r ? r.name : null
+        if (recipe) used.push(recipe.name);
+
+        meals.push({
+          type: type,
+          travel: travel,
+          lunchMode: type === "lunch" ? lunchMode : null,
+          recipe: recipe ? recipe.name : null
+        });
       });
+
+      menu.push({ day, meals });
     });
 
-    menu.push({day,meals});
-  });
+    state.menu = menu;
+    save();
+    renderMenu();
 
-  state.menu = menu;
-  save();
-  renderMenu();
+    const planned = menu.reduce(
+      (sum, day) => sum + day.meals.filter(m => m.recipe).length,
+      0
+    );
+
+    if (planned === 0) {
+      alert(
+        "Menyn skapades, men inga recept kunde väljas. " +
+        "Kontrollera valda måltider, tillagningsmetoder och allergener."
+      );
+    }
+  } catch (error) {
+    console.error("Fel vid skapande av veckomeny:", error);
+    alert("Veckomenyn kunde inte skapas: " + error.message);
+  }
 }
+
 
 function getRecipe(name) {
   return state.recipes.find(r=>r.name === name);
