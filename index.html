@@ -851,6 +851,7 @@ function pickRecipe(type,travel,used,lunchMode) {
 }
 
 
+
 function generateMenu() {
   try {
     saveSettings(false);
@@ -918,7 +919,6 @@ function generateMenu() {
     alert("Veckomenyn kunde inte skapas: " + error.message);
   }
 }
-
 
 function getRecipe(name) {
   return state.recipes.find(r=>r.name === name);
