@@ -167,13 +167,26 @@ allergens:checked("allergen")
 save();alert("Inställningarna sparade.");
 }
 function allowed(r,travel){
-const s=state.settings;
-if(!Array.isArray(r.allergens))return false;
-if(r.allergenStatus==="unknown")return false;
-if(r.allergens.some(a=>(s.allergens||[]).includes(a)))return false;
-if(!r.methods.some(m=>(s.methods||METHODS).includes(m)))return false;
-if(travel&&!r.travel)return false;
-return true;
+  const s = state.settings;
+  const excluded = s.allergens || [];
+
+  // Kontrollera att receptet har nödvändiga uppgifter
+  if(!Array.isArray(r.allergens)) return false;
+  if(!Array.isArray(r.methods)) return false;
+
+  // Om allergier är valda krävs verifierad allergenstatus
+  if(excluded.length > 0 && r.allergenStatus !== "verified") return false;
+
+  // Uteslut recept som innehåller valda allergener
+  if(r.allergens.some(a => excluded.includes(a))) return false;
+
+  // Kontrollera tillagningsmetod
+  if(!r.methods.some(m => (s.methods || METHODS).includes(m))) return false;
+
+  // På resdagar krävs ett recept som kan tas med
+  if(travel && !r.travel) return false;
+
+  return true;
 }
 function pickRecipe(type,travel,used){
 let candidates=state.recipes.filter(r=>r.type===type&&allowed(r,travel));
